@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Firebase Authentication via Email</title>
+    <link href="css/registered.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
 	<script>
@@ -38,11 +39,25 @@
   </head>
   
   <body>
-    <h1>Firebase Authentication Sign Up via Email</h1>
+    
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <form class="form-signin">
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <label for="inputEmail">Email address</label>
+              </div>
 
-    <input type="text" id="email"      placeholder="Email"/>
-    <input type="text" id="pwd"       placeholder="密碼"/>  
-    <button id="SignUp">註冊</button><br><br>  
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+
 
   </body>
 </html>
