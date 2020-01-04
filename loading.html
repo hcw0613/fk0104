@@ -59,12 +59,36 @@
   <body>
     <h1>Firebase Authentication Sign In via Email</h1>
 
-    <input type="text" id="email"      placeholder="Email"/>
-    <input type="text" id="pwd"       placeholder="密碼"/>  
-    <button id="SignIn">登入</button><br><br>  
-    <button id="SignOut">登出</button><br><br>  
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            
+              <div class="form-label-group">
+                <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+                <label for="inputEmail">Email address</label>
+              </div>
 
-    <button id="getUID">取得UID</button><br><br> 
+              <div class="form-label-group">
+                <input type="password" id="pwd" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+
+             
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id="SignIn">登入</button>
+              <hr class="my-4">
+            
+            <button type="submit"><a href="googlein.html">使用GOOGLE登入</a></button><br><br>
+              <button type="submit" ><a href="fbin.html">使用FB登入</a></button><br><br>
+          <button type="submit" id="SignOut">登出</button>
+          <button type="submit" id="getUID">取得UID</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </body>
 </html>

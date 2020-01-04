@@ -8,55 +8,52 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyCWqzUBy3E1kvC84G41awXItLguOy0arb0",
+	<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyCWqzUBy3E1kvC84G41awXItLguOy0arb0",
     authDomain: "w1216-91aee.firebaseapp.com",
     databaseURL: "https://w1216-91aee.firebaseio.com",
     projectId: "w1216-91aee",
     storageBucket: "w1216-91aee.appspot.com",
     messagingSenderId: "191726059177",
     appId: "1:191726059177:web:1780ea70cde7c78c1df3b8"
-    };
-    firebase.initializeApp(config);
-  </script>
+	  };
+	  firebase.initializeApp(config);
+	  var db = firebase.database(); 
+	</script>
 
     <script>
-        $(document).ready(function(){  
-            $("#SignIn").click(function(){
-                var email         = $('#email').val();
-                var password    = $('#pwd').val();
-                firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
-              // Handle Errors here.
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              // ...
-              alert(errorMessage)
-            })
-            });
-            var userLogin;
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          userLogin = user;
-          alert("User is logined")
-        } else {
-          userLogin = null;
-          alert("User is not logined yet.");
-        }
-      });
-       $("#SignOut").click(function(){
-        firebase.auth().signOut().then(function() {
-              console.log("User sign out!");
-          }, function(error) {
-          console.log("User sign out error!");
-          })
-       });
-            $("#getUID").click(function(){
-              if (userLogin)
-                alert(userLogin['uid']);
-            });                         
+        function push(name, msg) {
+          
+          var key = db.ref('message/').push({
+            username: name,
+            message: msg
+          }).key;
+          //alert("Push key = "+key);
+          
+        }        
+        
+        
+        $(document).ready(function(){ 
+            $("#push_test").click(function(){
+                var name         = $('#push_name').val();
+                var msg          = $('#push_msg').val();
+                push(name, msg);
+            });  
+            function display_msgs(data_val){
+              keys = Object.keys(data_val);
+              msgs = '';
+              
+              for (var i = keys.length - 1; i >= 0; i--) {
+                msgs += data_val[keys[i]]['username'] +': '+ data_val[keys[i]]['message']+'<br>';
+              }
+              $('#data').html(msgs); 
+            }
+            db.ref('message/').on('value', function(snapshot) {
+              display_msgs(snapshot.val());
+            });  
         });         
     </script>
     
@@ -94,10 +91,10 @@
             <a class="nav-link js-scroll-trigger" href="#projects">簡介</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#signup">聊天室</a>
+            <a class="nav-link js-scroll-trigger" href="#taigun">聊天室</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#loading">登入</a>
+            <a class="nav-link js-scroll-trigger" href="loading.html">登入</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="registered.html">註冊</a>
@@ -189,41 +186,15 @@
   </section>
 
   <!-- Signup Section -->
-  <section id="signup" class="signup-section">
+  <section id="taigun" class="signup-section">
+  	<input type="text" id="push_name"       placeholder="暱稱"/>
+    <input type="text" id="push_msg"        placeholder="訊息"/>
+    <button id="push_test">Push</button><br><br>  
+    <label>即時通訊示範</label><br>
+    <label  id="data"></label><br>
     
   </section>
-  <section id="loading" class="projects-section bg-light">
-  	<div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5">
-          <div class="card-body">
-            <h5 class="card-title text-center">Sign In</h5>
-            
-              <div class="form-label-group">
-                <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputEmail">Email address</label>
-              </div>
-
-              <div class="form-label-group">
-                <input type="password" id="pwd" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
-              </div>
-
-             
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id="SignIn">登入</button>
-              <hr class="my-4">
-            
-            <button type="submit"><a href="googlein.html">使用GOOGLE登入</a></button><br><br>
-              <button type="submit" ><a href="fbin.html">使用FB登入</a></button><br><br>
- 			 <button type="submit" id="SignOut">登出</button>
- 			 <button type="submit" id="getUID">取得UID</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
- </section>
+  
 
   <!-- Contact Section -->
   <section class="contact-section bg-black">
@@ -235,9 +206,9 @@
           <div class="card py-4 h-100">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
+              <h4 class="text-uppercase m-0">地址</h4>
               <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+              <div class="small text-black-50">404台中市北區三民路三段129號</div>
             </div>
           </div>
         </div>
@@ -249,7 +220,7 @@
               <h4 class="text-uppercase m-0">Email</h4>
               <hr class="my-4">
               <div class="small text-black-50">
-                <a href="#">hello@yourdomain.com</a>
+                <a href="#">hello@gmail.com</a>
               </div>
             </div>
           </div>
@@ -259,9 +230,9 @@
           <div class="card py-4 h-100">
             <div class="card-body text-center">
               <i class="fas fa-mobile-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Phone</h4>
+              <h4 class="text-uppercase m-0">電話話</h4>
               <hr class="my-4">
-              <div class="small text-black-50">+1 (555) 902-8832</div>
+              <div class="small text-black-50">(+886)0963-777-233</div>
             </div>
           </div>
         </div>
