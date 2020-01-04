@@ -59,78 +59,7 @@
             });                         
         });         
     </script>
-    <script>
-        $(document).ready(function(){  
-        	var provider = new firebase.auth.GoogleAuthProvider();
-		    //所需授權的Scope 
-		    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-		    provider.setCustomParameters({'login_hint': 'user@example.com'});
-		    var userLogin;
-			firebase.auth().onAuthStateChanged(function(user) {
-			  if (user) {
-			    userLogin = user;
-			    alert("User is logined")
-			  } else {
-			    userLogin = null;
-			    alert("User is not logined yet.");
-			  }
-			});
-            $("#SignIngoogle").click(function(){
-            	
-            	firebase.auth().signInWithPopup(provider).then(function(result) {
-	               // 取得FB Token，可以使用於FB API中
-	               var token = result.credential.accessToken;
-	               // 使用者資料
-	               userLogin = result.user;
-	               alert("成功使用 Google 帳號登入！");
-	            }).catch(function(error) {
-	            	// Handle Errors here.
-	                var errorCode = error.code;
-	                var errorMessage = error.message;
-	                // The email of the user's account used.
-	                var email = error.email;
-	                // The firebase.auth.AuthCredential type that was used.
-	                var credential = error.credential;
-	                alert(errorMessage)
-	            });
-            });
-</script>
-<script>
-        $(document).ready(function(){  
-        	var provider = new firebase.auth.FacebookAuthProvider();
-		    //所需授權的Scope 
-		    provider.addScope('user_birthday');
-		    provider.setCustomParameters({'display': 'popup'});
-		    var userLogin;
-			firebase.auth().onAuthStateChanged(function(user) {
-			  if (user) {
-			    userLogin = user;
-			    alert("User is logined")
-			  } else {
-			    userLogin = null;
-			    alert("User is not logined yet.");
-			  }
-			});
-            $("#SignInfb").click(function(){
-            	
-            	firebase.auth().signInWithPopup(provider).then(function(result) {
-	               // 取得FB Token，可以使用於FB API中
-	               var token = result.credential.accessToken;
-	               // 使用者資料
-	               userLogin = result.user;
-	               alert("成功使用 Facebook 帳號登入！");
-	            }).catch(function(error) {
-	            	// Handle Errors here.
-	                var errorCode = error.code;
-	                var errorMessage = error.message;
-	                // The email of the user's account used.
-	                var email = error.email;
-	                // The firebase.auth.AuthCredential type that was used.
-	                var credential = error.credential;
-	                alert(errorMessage)
-	            });
-            });
-            </script>
+    
   <title>Grayscale - Start Bootstrap Theme</title>
 
   <!-- Bootstrap core CSS -->
