@@ -46,6 +46,44 @@
           alert("User is not logined yet.");
         }
       });
+      $("#SignIngoogle").click(function(){
+            	
+            	firebase.auth().signInWithPopup(provider).then(function(result) {
+	               // 取得FB Token，可以使用於FB API中
+	               var token = result.credential.accessToken;
+	               // 使用者資料
+	               userLogin = result.user;
+	               alert("成功使用 Google 帳號登入！");
+	            }).catch(function(error) {
+	            	// Handle Errors here.
+	                var errorCode = error.code;
+	                var errorMessage = error.message;
+	                // The email of the user's account used.
+	                var email = error.email;
+	                // The firebase.auth.AuthCredential type that was used.
+	                var credential = error.credential;
+	                alert(errorMessage)
+	            });
+            });
+      $("#SignInfb").click(function(){
+            	
+            	firebase.auth().signInWithPopup(provider).then(function(result) {
+	               // 取得FB Token，可以使用於FB API中
+	               var token = result.credential.accessToken;
+	               // 使用者資料
+	               userLogin = result.user;
+	               alert("成功使用 Facebook 帳號登入！");
+	            }).catch(function(error) {
+	            	// Handle Errors here.
+	                var errorCode = error.code;
+	                var errorMessage = error.message;
+	                // The email of the user's account used.
+	                var email = error.email;
+	                // The firebase.auth.AuthCredential type that was used.
+	                var credential = error.credential;
+	                alert(errorMessage)
+	            });
+            });
       $("#SignOut").click(function(){
         firebase.auth().signOut().then(function() {
               console.log("User sign out!");
@@ -229,14 +267,15 @@
               <hr class="my-4">
               
             </form>
+            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" id="SignIngoogle"><i class="fab fa-google mr-2"></i>使用GOOGLE登入</button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit" id="SignInfb"><i class="fab fa-facebook-f mr-2"  ></i>使用FB登入</button>
+ 
           </div>
         </div>
       </div>
     </div>
   </div>
-  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"href ="googlein.html"></i> Sign in with Google</button>
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2" href ="fbin.html" ></i> Sign in with Facebook</button>
-  </section>
+ </section>
 
   <!-- Contact Section -->
   <section class="contact-section bg-black">
