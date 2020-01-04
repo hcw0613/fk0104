@@ -35,7 +35,7 @@
 			    alert("User is not logined yet.");
 			  }
 			});
-            $("#SignInfb").click(function(){
+            $("#SignIn").click(function(){
             	
             	firebase.auth().signInWithPopup(provider).then(function(result) {
 	               // 取得FB Token，可以使用於FB API中
