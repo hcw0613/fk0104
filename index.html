@@ -46,7 +46,36 @@
           alert("User is not logined yet.");
         }
       });
-      $("#SignIngoogle").click(function(){
+       $("#SignOut").click(function(){
+        firebase.auth().signOut().then(function() {
+              console.log("User sign out!");
+          }, function(error) {
+          console.log("User sign out error!");
+          })
+       });
+            $("#getUID").click(function(){
+              if (userLogin)
+                alert(userLogin['uid']);
+            });                         
+        });         
+    </script>
+    <script>
+        $(document).ready(function(){  
+        	var provider = new firebase.auth.GoogleAuthProvider();
+		    //所需授權的Scope 
+		    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+		    provider.setCustomParameters({'login_hint': 'user@example.com'});
+		    var userLogin;
+			firebase.auth().onAuthStateChanged(function(user) {
+			  if (user) {
+			    userLogin = user;
+			    alert("User is logined")
+			  } else {
+			    userLogin = null;
+			    alert("User is not logined yet.");
+			  }
+			});
+            $("#SignIngoogle").click(function(){
             	
             	firebase.auth().signInWithPopup(provider).then(function(result) {
 	               // 取得FB Token，可以使用於FB API中
@@ -65,7 +94,24 @@
 	                alert(errorMessage)
 	            });
             });
-      $("#SignInfb").click(function(){
+</script>
+<script>
+        $(document).ready(function(){  
+        	var provider = new firebase.auth.FacebookAuthProvider();
+		    //所需授權的Scope 
+		    provider.addScope('user_birthday');
+		    provider.setCustomParameters({'display': 'popup'});
+		    var userLogin;
+			firebase.auth().onAuthStateChanged(function(user) {
+			  if (user) {
+			    userLogin = user;
+			    alert("User is logined")
+			  } else {
+			    userLogin = null;
+			    alert("User is not logined yet.");
+			  }
+			});
+            $("#SignInfb").click(function(){
             	
             	firebase.auth().signInWithPopup(provider).then(function(result) {
 	               // 取得FB Token，可以使用於FB API中
@@ -84,20 +130,7 @@
 	                alert(errorMessage)
 	            });
             });
-      $("#SignOut").click(function(){
-        firebase.auth().signOut().then(function() {
-              console.log("User sign out!");
-          }, function(error) {
-          console.log("User sign out error!");
-          })
-       });
-            $("#getUID").click(function(){
-              if (userLogin)
-                alert(userLogin['uid']);
-            });                         
-        });         
-    </script>
-
+            </script>
   <title>Grayscale - Start Bootstrap Theme</title>
 
   <!-- Bootstrap core CSS -->
@@ -253,12 +286,12 @@
             <h5 class="card-title text-center">Sign In</h5>
             
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
                 <label for="inputEmail">Email address</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="password" id="pwd" class="form-control" placeholder="Password" required>
                 <label for="inputPassword">Password</label>
               </div>
 
